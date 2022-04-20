@@ -28,7 +28,7 @@ class Driver:
 
   def __call__(self, policy, steps=0, episodes=0,level=100):
     step, episode = 0, 0
-    repeat = 0
+    repeat = -1
     while step < steps or episode < episodes:
       obs = {
           i: self._envs[i].reset()
@@ -44,7 +44,13 @@ class Driver:
       actions, self._state = policy(obs, self._state, **self._kwargs)
       t2 = time.time()
       compute_time = (t2 - t1)
-      if repeat == 0:
+      if repeat == -1:
+        repeat = 0
+        actions = [
+            {k: np.array(actions[k][i]) for k in actions}
+            for i in range(len(self._envs))]
+        print("Skip first step")
+      elif repeat == 0:
         repeat = int(level * 1 * compute_time)
         print(repeat,compute_time)
         actions = [
