@@ -28,7 +28,7 @@ class Driver:
 
   def __call__(self, policy, steps=0, episodes=0,level=1):
     step, episode = 0, 0
-    rep_action = False
+    repeat = 0
     while step < steps or episode < episodes:
       obs = {
           i: self._envs[i].reset()
@@ -44,11 +44,17 @@ class Driver:
       actions, self._state = policy(obs, self._state, **self._kwargs)
       t2 = time.time()
       compute_time = (t2 - t1)
-      repeat = int(level * 1 * compute_time)
-      print(repeat,compute_time)
-      actions = [
-          {k: np.array(actions[k][i]) for k in actions}
-          for i in range(len(self._envs))]
+      if repeat = 0:
+        repeat = int(level * 1 * compute_time)
+        print(repeat,compute_time)
+        actions = [
+            {k: np.array(actions[k][i]) for k in actions}
+            for i in range(len(self._envs))]
+      else:
+        repeat -=1 
+        actions = prev_actions
+        print("Repeat actions")
+        print(actions)
       assert len(actions) == len(self._envs)
       obs = [e.step(a) for e, a in zip(self._envs, actions)]
       obs = [ob() if callable(ob) else ob for ob in obs]
@@ -63,6 +69,7 @@ class Driver:
           [fn(ep, **self._kwargs) for fn in self._on_episodes]
           episode += 1
       self._obs = obs
+      prev_actions = actions
 
   def _convert(self, value):
     value = np.array(value)
