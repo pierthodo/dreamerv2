@@ -138,10 +138,7 @@ def main():
   agnt = agent.Agent(config, obs_space, act_space, step)
   if (logdir / 'variables.pkl').exists():
     agnt.load(logdir / 'variables.pkl')
-  else:
-    print('Pretrain agent.')
-    for _ in range(config.pretrain):
-      train_agent(next(train_dataset))
+
 
   eval_policy = lambda *args: agnt.policy(*args, mode='eval')
 
