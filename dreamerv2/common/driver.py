@@ -26,7 +26,7 @@ class Driver:
     self._eps = [None] * len(self._envs)
     self._state = None
 
-  def __call__(self, policy, steps=0, episodes=0,level=1):
+  def __call__(self, policy, steps=0, episodes=0,level=3):
     step, episode = 0, 0
     repeat = 0
     while step < steps or episode < episodes:
