@@ -142,11 +142,21 @@ def main():
 
   eval_policy = lambda *args: agnt.policy(*args, mode='eval')
 
-
-
-  while step < config.steps:
+  # For CPU
+  begin = 0 
+  gap = 25
+  end = 500
+  
+  # For GPU 
+  #begin = 0
+  #gap = 500
+  #end = 10000
+  
+  
+  x = np.arange(begin, end, gap)
+  for level in x
     print('Start evaluation.')
-    eval_driver(eval_policy, episodes=config.eval_eps)
+    eval_driver(eval_policy, episodes=20,level=level)
 
 
 if __name__ == '__main__':
