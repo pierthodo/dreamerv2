@@ -44,7 +44,7 @@ class Driver:
       actions, self._state = policy(obs, self._state, **self._kwargs)
       t2 = time.time()
       compute_time = (t2 - t1)
-      if repeat = 0:
+      if repeat == 0:
         repeat = int(level * 1 * compute_time)
         print(repeat,compute_time)
         actions = [
