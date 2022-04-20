@@ -118,7 +118,7 @@ def main():
     logger.write()
 
   print('Create envs.')
-  num_eval_envs = min(config.envs, config.eval_eps)
+  num_eval_envs = 1
   if config.envs_parallel == 'none':
     eval_envs = [make_env('eval') for _ in range(num_eval_envs)]
   else:
