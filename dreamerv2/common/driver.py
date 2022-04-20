@@ -1,5 +1,5 @@
 import numpy as np
-
+import time
 
 class Driver:
 
@@ -26,8 +26,9 @@ class Driver:
     self._eps = [None] * len(self._envs)
     self._state = None
 
-  def __call__(self, policy, steps=0, episodes=0):
+  def __call__(self, policy, steps=0, episodes=0,level=1):
     step, episode = 0, 0
+    rep_action = False
     while step < steps or episode < episodes:
       obs = {
           i: self._envs[i].reset()
@@ -39,7 +40,12 @@ class Driver:
         [fn(tran, worker=i, **self._kwargs) for fn in self._on_resets]
         self._eps[i] = [tran]
       obs = {k: np.stack([o[k] for o in self._obs]) for k in self._obs[0]}
+      t1 = time.time()
       actions, self._state = policy(obs, self._state, **self._kwargs)
+      t2 = time.time()
+      compute_time = (t2 - t1)
+      repeat = int(level * 1 * compute_time)
+      print(repeat,compute_time)
       actions = [
           {k: np.array(actions[k][i]) for k in actions}
           for i in range(len(self._envs))]
