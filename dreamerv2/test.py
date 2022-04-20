@@ -127,8 +127,8 @@ def main():
     train_envs = [make_async_env('train') for _ in range(config.envs)]
     eval_envs = [make_async_env('eval') for _ in range(eval_envs)]
     
-  act_space = train_envs[0].act_space
-  obs_space = train_envs[0].obs_space
+  act_space = eval_envs[0].act_space
+  obs_space = eval_envs[0].obs_space
   eval_driver = common.Driver(eval_envs)
   eval_driver.on_episode(lambda ep: per_episode(ep, mode='eval'))
   eval_driver.on_episode(eval_replay.add_episode)
