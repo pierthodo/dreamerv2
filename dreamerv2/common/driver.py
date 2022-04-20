@@ -26,7 +26,7 @@ class Driver:
     self._eps = [None] * len(self._envs)
     self._state = None
 
-  def __call__(self, policy, steps=0, episodes=0,level=3):
+  def __call__(self, policy, steps=0, episodes=0,level=100):
     step, episode = 0, 0
     repeat = 0
     while step < steps or episode < episodes:
@@ -54,7 +54,6 @@ class Driver:
         repeat -=1 
         actions = prev_actions
         print("Repeat actions")
-        print(actions)
       assert len(actions) == len(self._envs)
       obs = [e.step(a) for e, a in zip(self._envs, actions)]
       obs = [ob() if callable(ob) else ob for ob in obs]
