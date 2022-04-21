@@ -129,6 +129,11 @@ def main():
     
   act_space = eval_envs[0].act_space
   obs_space = eval_envs[0].obs_space
+  train_driver = common.Driver(train_envs)
+  train_driver.on_episode(lambda ep: per_episode(ep, mode='train'))
+  train_driver.on_step(lambda tran, worker: step.increment())
+  train_driver.on_step(train_replay.add_step)
+  train_driver.on_reset(train_replay.add_step)
   eval_driver = common.Driver(eval_envs)
   eval_driver.on_episode(lambda ep: per_episode(ep, mode='eval'))
   eval_driver.on_episode(eval_replay.add_episode)
