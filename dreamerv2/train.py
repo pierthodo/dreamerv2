@@ -154,7 +154,8 @@ def main():
   agnt = agent.Agent(config, obs_space, act_space, step)
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
-  if (logdir / 'variables.pkl').exists():
+  #if (logdir / 'variables.pkl').exists():
+  if False:
     #agnt.load(logdir / 'variables.pkl')
     print("Pass loading")
   else:
