@@ -52,7 +52,7 @@ class Driver:
         print("Skip first step")
       elif repeat == 0:
         repeat = int(level * 1 * compute_time)
-        print(repeat,compute_time)
+        #print(repeat,compute_time)
         actions = [
             {k: np.array(actions[k][i]) for k in actions}
             for i in range(len(self._envs))]
