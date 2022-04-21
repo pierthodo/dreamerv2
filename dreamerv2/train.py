@@ -152,8 +152,11 @@ def main():
   report_dataset = iter(train_replay.dataset(**config.dataset))
   eval_dataset = iter(eval_replay.dataset(**config.dataset))
   agnt = agent.Agent(config, obs_space, act_space, step)
+  print(agnt.variables,len(agnt.variables))
+
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
+  print(agnt.variables,len(agnt.variables))
   #if (logdir / 'variables.pkl').exists():
   if False:
     #agnt.load(logdir / 'variables.pkl')
