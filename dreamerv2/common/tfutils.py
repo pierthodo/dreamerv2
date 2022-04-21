@@ -49,7 +49,6 @@ class Module(tf.Module):
     with pathlib.Path(filename).open('rb') as f:
       values = pickle.load(f)
       
-    values = tuple([np.array(i) if type(i)==int else i for i in values])
     amount = len(tf.nest.flatten(values))
     count = int(sum(np.prod(x.shape) for x in tf.nest.flatten(values)))
     print(f'Load checkpoint with {amount} tensors and {count} parameters.')
