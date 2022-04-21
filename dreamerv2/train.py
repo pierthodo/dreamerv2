@@ -159,8 +159,12 @@ def main():
     print("Pass loading")
   else:
     print('Pretrain agent.')
-    for _ in range(config.pretrain):
+    #for _ in range(config.pretrain):
+    for _ in range(1):
+      print("Pre-train")
       train_agent(next(train_dataset))
+      print("Load")
+      agnt.load(logdir / 'variables.pkl')
   train_policy = lambda *args: agnt.policy(
       *args, mode='explore' if should_expl(step) else 'train')
   eval_policy = lambda *args: agnt.policy(*args, mode='eval')
