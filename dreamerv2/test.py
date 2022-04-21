@@ -120,6 +120,7 @@ def main():
   print('Create envs.')
   num_eval_envs = 1
   if config.envs_parallel == 'none':
+    train_envs = [make_env('train') for _ in range(config.envs)]
     eval_envs = [make_env('eval') for _ in range(num_eval_envs)]
   else:
     make_async_env = lambda mode: common.Async(
