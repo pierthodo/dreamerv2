@@ -158,7 +158,7 @@ def main():
   train_agent(next(train_dataset))
   print(agnt.variables,len(agnt.variables))
   print("Loading agent")
-  agnt.load("/app/data/dreamerv2/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl')
+  agnt.load("/app/data/dreamerv2/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl")
   print("Weee")
   #if (logdir / 'variables.pkl').exists():
   if False:
