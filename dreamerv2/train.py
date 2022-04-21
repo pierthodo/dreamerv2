@@ -155,7 +155,8 @@ def main():
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
   if (logdir / 'variables.pkl').exists():
-    agnt.load(logdir / 'variables.pkl')
+    #agnt.load(logdir / 'variables.pkl')
+    print("Pass loading")
   else:
     print('Pretrain agent.')
     for _ in range(config.pretrain):
@@ -184,7 +185,9 @@ def main():
     eval_driver(eval_policy, episodes=config.eval_eps)
     print('Start training.')
     train_driver(train_policy, steps=config.eval_every)
-    agnt.save(logdir / 'variables.pkl')
+    print("Loading model")
+    agnt.load(logdir / 'variables.pkl')
+    #agnt.save(logdir / 'variables.pkl')
   for env in train_envs + eval_envs:
     try:
       env.close()
