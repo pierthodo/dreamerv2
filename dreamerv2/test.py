@@ -134,11 +134,26 @@ def main():
   eval_driver.on_episode(eval_replay.add_episode)
 
 
-  print('Create agent.')
-  agnt = agent.Agent(config, obs_space, act_space, step)
-  if (logdir / 'variables.pkl').exists():
-    agnt.load(logdir / 'variables.pkl')
+  print(f'Prefill dataset ({prefill} steps).')
+  random_agent = common.RandomAgent(act_space)
+  train_driver(random_agent, steps=prefill, episodes=1)
+  eval_driver(random_agent, episodes=1)
+  train_driver.reset()
+  eval_driver.reset()
 
+  print('Create agent.')
+  train_dataset = iter(train_replay.dataset(**config.dataset))
+  report_dataset = iter(train_replay.dataset(**config.dataset))
+  eval_dataset = iter(eval_replay.dataset(**config.dataset))
+  agnt = agent.Agent(config, obs_space, act_space, step)
+  print(agnt.variables,len(agnt.variables))
+
+  train_agent = common.CarryOverState(agnt.train)
+  train_agent(next(train_dataset))
+  print("Loading agent")
+  agnt.load("/app/data/dreamerv2/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl")
+  print("Weee")
+  
 
   eval_policy = lambda *args: agnt.policy(*args, mode='eval')
 
