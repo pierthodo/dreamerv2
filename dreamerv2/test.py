@@ -134,7 +134,7 @@ def main():
   eval_driver.on_episode(eval_replay.add_episode)
 
 
-  print(f'Prefill dataset ({prefill} steps).')
+  prefill = max(0, config.prefill - train_replay.stats['total_steps'])
   random_agent = common.RandomAgent(act_space)
   train_driver(random_agent, steps=prefill, episodes=1)
   eval_driver(random_agent, episodes=1)
