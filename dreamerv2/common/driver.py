@@ -49,7 +49,6 @@ class Driver:
         actions = [
             {k: np.array(actions[k][i]) for k in actions}
             for i in range(len(self._envs))]
-        print("Skip first step")
       elif repeat == 0:
         repeat = int(level * 1 * compute_time)
         #print(repeat,compute_time)
@@ -59,7 +58,6 @@ class Driver:
       else:
         repeat -=1 
         actions = prev_actions
-        print("Repeat actions")
       assert len(actions) == len(self._envs)
       obs = [e.step(a) for e, a in zip(self._envs, actions)]
       obs = [ob() if callable(ob) else ob for ob in obs]
