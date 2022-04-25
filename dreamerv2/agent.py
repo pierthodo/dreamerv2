@@ -8,7 +8,6 @@ import time
 class Agent(common.Module):
 
   def __init__(self, config, obs_space, act_space, step):
-    print("AAAA")
     self.config = config
     self.obs_space = obs_space
     self.act_space = act_space['action']
@@ -16,7 +15,6 @@ class Agent(common.Module):
     self.tfstep = tf.Variable(int(self.step), tf.int64)
     self.wm = WorldModel(config, obs_space, self.tfstep)
     self._task_behavior = ActorCritic(config, self.act_space, self.tfstep)
-    tf.Print("Load new agentwwweee")
     if config.expl_behavior == 'greedy':
       self._expl_behavior = self._task_behavior
     else:
@@ -26,7 +24,6 @@ class Agent(common.Module):
 
   @tf.function
   def policy(self, obs, state=None, mode='train'):
-    tf.Print("AAA")
     obs = tf.nest.map_structure(tf.tensor, obs)
     tf.py_function(lambda: self.tfstep.assign(
         int(self.step), read_value=False), [], [])
