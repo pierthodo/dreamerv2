@@ -72,7 +72,7 @@ class Driver:
     t1 = time.time()
     tmp = [policy(a,b,**c) for a,b,c in obs_list]
     t2 = time.time()
-    print("Compute time is ",t2-t1," for ",len(obs_list)
+    print("Compute time is ",t2-t1," for ",len(obs_list))
 
     
     
