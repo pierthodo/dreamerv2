@@ -51,6 +51,9 @@ class Agent(common.Module):
       actor = self._task_behavior.actor(feat)
       action = actor.sample()
       noise = self.config.expl_noise
+    f = open("./tmp.txt","wb")
+    f.write("A",time.time()-t1)
+    f.close()
     tf.print("A",time.time()-t1, output_stream=sys.stderr)
     action = common.action_noise(action, noise, self.act_space)
     outputs = {'action': action}
