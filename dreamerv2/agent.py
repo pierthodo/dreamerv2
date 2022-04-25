@@ -15,6 +15,7 @@ class Agent(common.Module):
     self.tfstep = tf.Variable(int(self.step), tf.int64)
     self.wm = WorldModel(config, obs_space, self.tfstep)
     self._task_behavior = ActorCritic(config, self.act_space, self.tfstep)
+    print("Load new agentwwweee")
     if config.expl_behavior == 'greedy':
       self._expl_behavior = self._task_behavior
     else:
