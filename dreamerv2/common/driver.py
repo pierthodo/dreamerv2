@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import copy 
 
 class Driver:
 
@@ -30,6 +31,7 @@ class Driver:
     step, episode = 0, 0
     repeat = level
     compute_list = []
+    obs_list = []
     while step < steps or episode < episodes:
       obs = {
           i: self._envs[i].reset()
@@ -41,11 +43,8 @@ class Driver:
         [fn(tran, worker=i, **self._kwargs) for fn in self._on_resets]
         self._eps[i] = [tran]
       obs = {k: np.stack([o[k] for o in self._obs]) for k in self._obs[0]}
-      t1 = time.time()
+      obs_list.append((copy.deepcopy(obs),copy.deepcopy(self._state),copy.deepcopy(self._kwargs)))
       actions, self._state = policy(obs, self._state, **self._kwargs)
-      t2 = time.time()
-      compute_time = (t2 - t1)
-      compute_list.append(compute_time)
       if repeat == 0:
         repeat = level
         actions = [
@@ -69,6 +68,11 @@ class Driver:
           episode += 1
       self._obs = obs
       prev_actions = actions
+    
+    t1 = time.time()
+    tmp = [policy(a,b,**c) for a,b,c in obs_list]
+    t2 = time.time()
+    print("Compute time is ",t2-t1," for ",len(obs_list)
     if return_val:
       return np.array(compute_list)
     
