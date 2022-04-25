@@ -177,8 +177,8 @@ def main():
   x = np.arange(begin, end, gap)
   for level in range(10):
     print('Start evaluation.')
-    eval_driver(eval_policy, episodes=20,level=level)
-
+    t,obs_num = eval_driver(eval_policy, episodes=20,level=level,return_val=True)
+    print("Time t ",t," for ", obs_num," which yields " , t/float(obs_num))
 
 if __name__ == '__main__':
   main()
