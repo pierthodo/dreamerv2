@@ -15,7 +15,7 @@ class Agent(common.Module):
     self.tfstep = tf.Variable(int(self.step), tf.int64)
     self.wm = WorldModel(config, obs_space, self.tfstep)
     self._task_behavior = ActorCritic(config, self.act_space, self.tfstep)
-    print("Load new agentwwweee")
+    tf.Print("Load new agentwwweee")
     if config.expl_behavior == 'greedy':
       self._expl_behavior = self._task_behavior
     else:
@@ -25,7 +25,7 @@ class Agent(common.Module):
 
   @tf.function
   def policy(self, obs, state=None, mode='train'):
-    tf.print("AAA")
+    tf.Print("AAA")
     obs = tf.nest.map_structure(tf.tensor, obs)
     tf.py_function(lambda: self.tfstep.assign(
         int(self.step), read_value=False), [], [])
@@ -52,10 +52,7 @@ class Agent(common.Module):
       actor = self._task_behavior.actor(feat)
       action = actor.sample()
       noise = self.config.expl_noise
-    f = open("./tmp.txt","wb")
-    f.write("A",time.time()-t1)
-    f.close()
-    tf.print("A",time.time()-t1, output_stream=sys.stderr)
+    tf.Print("A",time.time()-t1, output_stream=sys.stderr)
     action = common.action_noise(action, noise, self.act_space)
     outputs = {'action': action}
     state = (latent, action)
