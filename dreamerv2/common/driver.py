@@ -75,7 +75,8 @@ class Driver:
     tmp = [policy(a,b,**c) for a,b,c in obs_list]
     t2 = time.time()
     print("Compute time is ",t2-t1," for ",len(obs_list))
-
+    if return_val:
+      return t2-t1,len(obs_list)
     
     
   def _convert(self, value):
