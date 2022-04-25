@@ -24,7 +24,7 @@ class Agent(common.Module):
 
   @tf.function
   def policy(self, obs, state=None, mode='train'):
-    print("AAA")
+    tf.print("AAA")
     obs = tf.nest.map_structure(tf.tensor, obs)
     tf.py_function(lambda: self.tfstep.assign(
         int(self.step), read_value=False), [], [])
@@ -51,7 +51,7 @@ class Agent(common.Module):
       actor = self._task_behavior.actor(feat)
       action = actor.sample()
       noise = self.config.expl_noise
-    print("A",time.time()-t1)
+    tf.print("A",time.time()-t1)
     action = common.action_noise(action, noise, self.act_space)
     outputs = {'action': action}
     state = (latent, action)
