@@ -26,7 +26,7 @@ class Driver:
     self._eps = [None] * len(self._envs)
     self._state = None
 
-  def __call__(self, policy, steps=0, episodes=0,level=100):
+  def __call__(self, policy, steps=0, episodes=0,level=100,return_val=False):
     step, episode = 0, 0
     repeat = -1
     compute_list = []
@@ -75,7 +75,10 @@ class Driver:
           episode += 1
       self._obs = obs
       prev_actions = actions
-
+    if return_val:
+      return np.array(compute_list)
+    
+    
   def _convert(self, value):
     value = np.array(value)
     if np.issubdtype(value.dtype, np.floating):
