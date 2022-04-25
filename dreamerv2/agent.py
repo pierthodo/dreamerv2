@@ -51,7 +51,7 @@ class Agent(common.Module):
       actor = self._task_behavior.actor(feat)
       action = actor.sample()
       noise = self.config.expl_noise
-    tf.print("A",time.time()-t1)
+    tf.print("A",time.time()-t1, output_stream=sys.stderr)
     action = common.action_noise(action, noise, self.act_space)
     outputs = {'action': action}
     state = (latent, action)
