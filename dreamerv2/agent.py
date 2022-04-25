@@ -3,7 +3,7 @@ from tensorflow.keras import mixed_precision as prec
 
 import common
 import expl
-
+import time
 
 class Agent(common.Module):
 
@@ -32,6 +32,7 @@ class Agent(common.Module):
       action = tf.zeros((len(obs['reward']),) + self.act_space.shape)
       state = latent, action
     latent, action = state
+    t1 = time.time()
     embed = self.wm.encoder(self.wm.preprocess(obs))
     sample = (mode == 'train') or not self.config.eval_state_mean
     latent, _ = self.wm.rssm.obs_step(
@@ -49,6 +50,7 @@ class Agent(common.Module):
       actor = self._task_behavior.actor(feat)
       action = actor.sample()
       noise = self.config.expl_noise
+    print(time.time()-t1)
     action = common.action_noise(action, noise, self.act_space)
     outputs = {'action': action}
     state = (latent, action)
