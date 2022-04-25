@@ -45,6 +45,7 @@ class Driver:
       obs = {k: np.stack([o[k] for o in self._obs]) for k in self._obs[0]}
       obs_list.append((copy.deepcopy(obs),copy.deepcopy(self._state),copy.deepcopy(self._kwargs)))
       t1 = time.time()
+      print(obs.device,self._state.device)
       actions, self._state = policy(obs, self._state, **self._kwargs)
       print(time.time()-t1)
       if repeat == 0:
