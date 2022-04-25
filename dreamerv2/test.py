@@ -175,7 +175,7 @@ def main():
   
   
   x = np.arange(begin, end, gap)
-  for level in x:
+  for level in range(10):
     print('Start evaluation.')
     eval_driver(eval_policy, episodes=20,level=level)
 
