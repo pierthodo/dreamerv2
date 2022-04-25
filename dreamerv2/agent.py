@@ -8,6 +8,7 @@ import time
 class Agent(common.Module):
 
   def __init__(self, config, obs_space, act_space, step):
+    print("AAAA")
     self.config = config
     self.obs_space = obs_space
     self.act_space = act_space['action']
