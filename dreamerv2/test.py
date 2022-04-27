@@ -36,7 +36,8 @@ def main():
   for name in parsed.configs:
     config = config.update(configs[name])
   config = common.Flags(config).parse(remaining)
-  config.logdir += "tmp"
+  print(config.logdir)
+  config = config.update({"logdir":config.logdir + "tmp"})
   print(config.logdir[:-4])
   print(config.logdir)
 
