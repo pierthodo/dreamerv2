@@ -38,7 +38,7 @@ def main():
   config = common.Flags(config).parse(remaining)
 
   logdir = pathlib.Path(config.logdir).expanduser()
-  logdir += "/tmp/
+  logdir += "/tmp/"
   print(logdir)
   print(logdir[:-4])
   logdir.mkdir(parents=True, exist_ok=True)
