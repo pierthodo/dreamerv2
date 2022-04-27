@@ -49,7 +49,7 @@ class Driver:
       actions, self._state = policy(obs, self._state, **self._kwargs)
       if prev_actions == None:
         prev_actions = copy.deepcopy(actions)
-      print(time.time()-t1)
+      #print(time.time()-t1)
       if repeat == 0:
         repeat = level
         actions = copy.deepcopy(prev_actions)
