@@ -157,7 +157,7 @@ def main():
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
   print("Loading agent")
-  agnt.load("/app/data/dreamerv2/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl")
+  agnt.load("/app/data/dreamer/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl")
   print("Weee")
   
 
