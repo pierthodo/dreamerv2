@@ -32,7 +32,6 @@ class Driver:
     repeat = level
     compute_list = []
     obs_list = []
-    prev_actions = None
     while step < steps or episode < episodes:
       obs = {
           i: self._envs[i].reset()
@@ -46,21 +45,16 @@ class Driver:
       obs = {k: np.stack([o[k] for o in self._obs]) for k in self._obs[0]}
       obs_list.append((copy.deepcopy(obs),copy.deepcopy(self._state),copy.deepcopy(self._kwargs)))
       t1 = time.time()
-      new_actions, self._state = policy(obs, self._state, **self._kwargs)
-      if prev_actions == None:
-        prev_actions = copy.deepcopy(new_actions)
-      #print(time.time()-t1)
+      actions, self._state = policy(obs, self._state, **self._kwargs)
+      print(time.time()-t1)
       if repeat == 0:
         repeat = level
-
-        actions = copy.deepcopy(prev_actions)
-        prev_actions = [
-            {k: np.array(new_actions[k][i]) for k in new_actions}
+        actions = [
+            {k: np.array(actions[k][i]) for k in actions}
             for i in range(len(self._envs))]
       else:
         repeat -= 1
-      print(actions)
-      actions = new_actions
+        actions = prev_actions
       assert len(actions) == len(self._envs)
       obs = [e.step(a) for e, a in zip(self._envs, actions)]
       obs = [ob() if callable(ob) else ob for ob in obs]
@@ -75,6 +69,7 @@ class Driver:
           [fn(ep, **self._kwargs) for fn in self._on_episodes]
           episode += 1
       self._obs = obs
+      prev_actions = actions
     
     t1 = time.time()
     tmp = [policy(a,b,**c) for a,b,c in obs_list]
