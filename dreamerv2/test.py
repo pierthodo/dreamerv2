@@ -38,8 +38,9 @@ def main():
   config = common.Flags(config).parse(remaining)
 
   logdir = pathlib.Path(config.logdir).expanduser()
+  logdir += "/tmp/
   print(logdir)
-  #logdir += "/tmp/
+  print(logdir[:-4])
   logdir.mkdir(parents=True, exist_ok=True)
   config.save(logdir / 'config.yaml')
   print(config, '\n')
@@ -159,7 +160,7 @@ def main():
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
   print("Loading agent")
-  agnt.load("/app/data/dreamer/logdir/dmc_walker_walk/dreamerv2/1/variables.pkl")
+  agnt.load(logdir[:-4]+"variables.pkl")
   print("Weee")
   
 
