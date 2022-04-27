@@ -37,7 +37,7 @@ def main():
     config = config.update(configs[name])
   config = common.Flags(config).parse(remaining)
   print(config.logdir)
-  config = config.update({"logdir":config.logdir + "tmp"})
+  config = config.update({"logdir":config.logdir + "/tmp"})
   print(config.logdir[:-4])
   print(config.logdir)
 
