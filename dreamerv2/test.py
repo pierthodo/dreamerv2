@@ -42,7 +42,7 @@ def main():
   print(config.logdir)
 
   logdir = pathlib.Path(config.logdir).expanduser()
-  logdir += "/tmp/"
+  #logdir += "/tmp/"
   logdir.mkdir(parents=True, exist_ok=True)
   config.save(logdir / 'config.yaml')
   print(config, '\n')
