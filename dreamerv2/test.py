@@ -162,7 +162,7 @@ def main():
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
   print("Loading agent")
-  agnt.load(config.logdir[:-4]+"variables.pkl")
+  agnt.load(config.logdir[:-4]+"/variables.pkl")
   print("Weee")
   
 
