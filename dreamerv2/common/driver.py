@@ -46,15 +46,16 @@ class Driver:
       obs = {k: np.stack([o[k] for o in self._obs]) for k in self._obs[0]}
       obs_list.append((copy.deepcopy(obs),copy.deepcopy(self._state),copy.deepcopy(self._kwargs)))
       t1 = time.time()
-      actions, self._state = policy(obs, self._state, **self._kwargs)
+      new_actions, self._state = policy(obs, self._state, **self._kwargs)
       if prev_actions == None:
-        prev_actions = copy.deepcopy(actions)
+        prev_actions = copy.deepcopy(new_actions)
       #print(time.time()-t1)
       if repeat == 0:
         repeat = level
+
         actions = copy.deepcopy(prev_actions)
         prev_actions = [
-            {k: np.array(actions[k][i]) for k in actions}
+            {k: np.array(new_actions[k][i]) for k in new_actions}
             for i in range(len(self._envs))]
       else:
         repeat -= 1
