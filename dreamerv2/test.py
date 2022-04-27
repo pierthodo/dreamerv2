@@ -38,6 +38,8 @@ def main():
   config = common.Flags(config).parse(remaining)
 
   logdir = pathlib.Path(config.logdir).expanduser()
+  print(logdir)
+  #logdir += "/tmp/
   logdir.mkdir(parents=True, exist_ok=True)
   config.save(logdir / 'config.yaml')
   print(config, '\n')
