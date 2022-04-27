@@ -36,11 +36,12 @@ def main():
   for name in parsed.configs:
     config = config.update(configs[name])
   config = common.Flags(config).parse(remaining)
+  config.logdir += "tmp"
+  print(config.logdir[:-4])
+  print(config.logdir)
 
   logdir = pathlib.Path(config.logdir).expanduser()
   logdir += "/tmp/"
-  print(logdir)
-  print(logdir[:-4])
   logdir.mkdir(parents=True, exist_ok=True)
   config.save(logdir / 'config.yaml')
   print(config, '\n')
@@ -160,7 +161,7 @@ def main():
   train_agent = common.CarryOverState(agnt.train)
   train_agent(next(train_dataset))
   print("Loading agent")
-  agnt.load(logdir[:-4]+"variables.pkl")
+  agnt.load(config.logdir[:-4]+"variables.pkl")
   print("Weee")
   
 
