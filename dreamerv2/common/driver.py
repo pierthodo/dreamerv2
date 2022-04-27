@@ -59,7 +59,7 @@ class Driver:
             for i in range(len(self._envs))]
       else:
         repeat -= 1
-
+      print(actions)
       assert len(actions) == len(self._envs)
       obs = [e.step(a) for e, a in zip(self._envs, actions)]
       obs = [ob() if callable(ob) else ob for ob in obs]
