@@ -47,10 +47,12 @@ class Driver:
       obs_list.append((copy.deepcopy(obs),copy.deepcopy(self._state),copy.deepcopy(self._kwargs)))
       t1 = time.time()
       new_actions, self._state = policy(obs, self._state, **self._kwargs)
+      print(time.time()-t1)
       if prev_actions == None:
         prev_actions = [
             {k: np.array(new_actions[k][i]) for k in new_actions}
             for i in range(len(self._envs))]
+        actions = prev_actions
       if repeat == 0:
         repeat = level
         actions = prev_actions
